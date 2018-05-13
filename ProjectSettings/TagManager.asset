@@ -7,6 +7,9 @@ TagManager:
   - Piso
   - Playercito
   - Disparo
+  - Enemy
+  - AngDisp
+  - VerdeHP
   layers:
   - Default
   - TransparentFX
@@ -43,4 +46,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Terreno
+    uniqueID: 2595225839
     locked: 0

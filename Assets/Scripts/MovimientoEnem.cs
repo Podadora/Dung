@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class MovimientoEnem : MonoBehaviour {
 
@@ -8,16 +10,25 @@ public class MovimientoEnem : MonoBehaviour {
 	public GameObject target;
 	private Collider2D Otro;
 	public float VelEn = 5f;
-	public int Vida = 20;
+	public float HPMax = 20;
 	public float CalcMov = 0.03f;
-	public float Posx = 0f;
-	public float Posy = 0f;
+	private float Posx = 0f;
+	private float Posy = 0f; 
 	public Vector2 PosRel;
+	public GameManager ScrScore;
+
+	// Barra HP
+	public RectTransform VerdeHP;
+	private float HPAct;
+
 
 	public Animator AnimZomb;
 	// Use this for initialization
 	void Start () {
-		
+		//Vector3 PosHP = new Vector3 (transform.position.x + 4, transform.position.y, transform.position.z);
+		//Instantiate(BarraHP, PosHP,transform.rotation);
+		HPAct = HPMax;
+
 	}
 	 
 	// Update is called once per frame
@@ -83,10 +94,13 @@ public class MovimientoEnem : MonoBehaviour {
 
 
 
-		if (Vida <= 0)
+		if (HPAct <= 0)
 		{
+			ScrScore = target.GetComponent<GameManager> ();
+			ScrScore.Score += 1;
 			Destroy (gameObject);
 		}
+
 
 
 	}
@@ -96,8 +110,17 @@ public class MovimientoEnem : MonoBehaviour {
 		if (Otro.tag == "Disparo")
 		{
 			// Stops GameObject2 moving
-			Vida -= 5 ;
+			HPAct -= 5 ;
+			UpgradeHP ();
 			Debug.Log("OnTriggerEnter2D");
+		}
+	}
+	void UpgradeHP()
+	{
+		if(HPAct != HPMax)
+		{
+			float Ratio = HPAct / HPMax;  
+			VerdeHP.localScale = new Vector2 (Ratio, 1);
 		}
 	}
 }

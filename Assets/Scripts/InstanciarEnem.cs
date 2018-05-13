@@ -13,12 +13,12 @@ public class InstanciarEnem : MonoBehaviour {
 
 	void invoca()
 	{	
-		Instantiate(Enemigo, transform.position, transform.rotation);
+		LimEnem -= 1;
 		if (LimEnem == 0) 
 		{
 			CancelInvoke ("invoca");
 		}
-		LimEnem -= 1;
+		Instantiate(Enemigo, transform.position, transform.rotation);
 	}
 	void Start () 
 	{
